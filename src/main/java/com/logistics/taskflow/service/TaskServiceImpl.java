@@ -61,14 +61,14 @@ public class TaskServiceImpl implements TaskService {
     @Transactional(readOnly = true)
     public TaskResponseDTO getTaskById(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
+                .orElseThrow(() -> ResourceNotFoundException.forTask(id));
         return mapToResponseDTO(task);
     }
 
     @Override
     public TaskResponseDTO updateTask(Long id, TaskUpdateDTO updateTaskDTO) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
+                .orElseThrow(() -> ResourceNotFoundException.forTask(id));
 
         if (updateTaskDTO.getTitle() != null) {
             task.setTitle(updateTaskDTO.getTitle());
@@ -90,7 +90,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteTask(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
+                .orElseThrow(() -> ResourceNotFoundException.forTask(id));
         taskRepository.delete(task);
     }
 
