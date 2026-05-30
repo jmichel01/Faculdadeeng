@@ -39,6 +39,12 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
+    @GetMapping("/priority")
+    public ResponseEntity<List<TaskResponseDTO>> getTasksOrderedByPriority() {
+        List<TaskResponseDTO> tasks = taskService.getTasksOrderedByPriority();
+        return ResponseEntity.ok(tasks);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable Long id) {
         TaskResponseDTO task = taskService.getTaskById(id);

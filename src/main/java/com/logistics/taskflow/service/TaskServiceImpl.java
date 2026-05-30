@@ -94,6 +94,14 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.delete(task);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<TaskResponseDTO> getTasksOrderedByPriority() {
+        return taskRepository.findAllByOrderByPriorityDesc().stream()
+                .map(this::mapToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
     // Mapping utility
     private TaskResponseDTO mapToResponseDTO(Task task) {
         return new TaskResponseDTO(
