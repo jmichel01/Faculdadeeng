@@ -5,10 +5,14 @@ import com.logistics.taskflow.entity.Status;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO used for updating an existing task's fields.
+ * All fields are optional except title, which must be provided and non-blank.
+ */
 public class TaskUpdateDTO {
 
     @NotBlank(message = "Title cannot be blank")
-    @Size(max = 100, message = "Title cannot exceed 100 characters")
+    @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
     private String title;
 
     @Size(max = 1000, message = "Description cannot exceed 1000 characters")
